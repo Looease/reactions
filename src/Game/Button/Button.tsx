@@ -1,4 +1,4 @@
-﻿import React, {FunctionComponent} from "react";
+﻿import React, { FunctionComponent } from "react";
 import styles from "./Button.module.scss";
 
 
@@ -9,36 +9,27 @@ interface ButtonProps {
     x: number;
     y: number;
     activeButtonId: number;
+    setActiveButtonId: (id: number) => void;
 }
 
-export const Button: FunctionComponent<ButtonProps> = ({id, x, y, activeButtonId}) => {
-        const isActive = id === activeButtonId;
-        const getClassName = () :string => {
-            if (isActive){
-                return `${styles.button} ${styles.active}`
-            }
-            return styles.button;
+export const Button: FunctionComponent<ButtonProps> = ({ id, x, y, activeButtonId, setActiveButtonId }) => {
+    const isActive = id === activeButtonId;
+    const getClassName = (): string => {
+        if (isActive) {
+            return `${styles.button} ${styles.active}`
         }
+        return styles.button;
+    }
+    const buttonClicked = (): void => {             
+        if(isActive){
+            const randomButton = Math.floor(Math.random() * 8);
+            setActiveButtonId(randomButton);
+        }   
+    }
     return (
-        <circle className={getClassName()} cx={x} cy={y} r={100}/>
+        <circle onClick={buttonClicked} className={getClassName()} cx={x} cy={y} r={100} />
+
     );
 };
 
 
-
-
-
-
-
-
-
-
-// const getClassName = (): string => {
-//     if (isActive) {
-//         return `${styles.button} ${styles.active}`
-//     }
-//     return styles.button;
-// }
-
-// // or, if you know the ternary operator...
-// const className = isActive ? `${styles.button} ${styles.active}` : styles.button;
