@@ -9,12 +9,10 @@ interface ButtonProps {
     x: number;
     y: number;
     activeButtonId: number;
-    setActiveButtonId: (id: number) => void;
-    gameScore: number;
-    setGameScore: (newScore: number) => void
+    onButtonPressed: ()=> void;
 }
 
-export const Button: FunctionComponent<ButtonProps> = ({ id, x, y, activeButtonId, setActiveButtonId, gameScore, setGameScore }) => {
+export const Button: FunctionComponent<ButtonProps> = ({ id, x, y, activeButtonId, onButtonPressed }) => {
     //below we are defining what happens when our button is clicked.
     const isActive = id === activeButtonId;
     const getClassName = (): string => {
@@ -28,13 +26,9 @@ export const Button: FunctionComponent<ButtonProps> = ({ id, x, y, activeButtonI
     // function to call setActiveButtonId 
     const buttonClicked = (): void => {             
         if(isActive){
-            const randomButton = Math.floor(Math.random() * 8);
-            setActiveButtonId(randomButton);
-            //Adds 1 to gamescore
-             // whenever we render a button you need to give it gameScore and a setGameScore function that adds 1 to gameScore
-            setGameScore(gameScore +1)
-            
-        }   
+         onButtonPressed();               
+        } 
+
     }
     return (
         <circle onClick={buttonClicked} className={getClassName()} cx={x} cy={y} r={100} />
